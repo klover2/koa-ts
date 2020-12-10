@@ -1,6 +1,7 @@
 ## 介绍
 该框架集成koa, 轻量级。可以重新组装符合自己的项目的框架
 本框架是一个完整是项目，可以直接使用。
+[详细介绍](https://blog.csdn.net/weixin_43110609/article/details/110956578)
 ## 环境
 1. node 
 2. typescript 
@@ -74,6 +75,9 @@ import RedisServer from '../utils/redis';
 const redisServer = RedisServer('myblog-ts_modules');
 
 ## 使用
+## 使用
+let result = await redisServer._get('hh'); // _get 是重写的方法
+也可以直接使用
 let result = await redisServer.get('hh');
 ```
 
