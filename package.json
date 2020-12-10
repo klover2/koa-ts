@@ -5,6 +5,7 @@
   "main": "app.ts",
   "author": "klover",
   "license": "MIT",
+  "keywords": ["typescript", "mysql", "koa", "node"],
   "scripts": {
     "serve": "export NODE_ENV=dev && ts-node app.ts",
     "start": "export NODE_ENV=api && pm2 start dist/app.js --name myblog-ts",

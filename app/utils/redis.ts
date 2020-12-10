@@ -25,12 +25,7 @@ export default (sid: string, redisCommon?: IRedisCommon): any => {
     // set
     async _set(val: ISet): Promise<boolean> {
       if (val.expiryMode && val.time) {
-        await super.set(
-          `${sid}:${val.key}`,
-          JSON.stringify(val.value),
-          val.expiryMode,
-          val.time
-        );
+        await super.set(`${sid}:${val.key}`, JSON.stringify(val.value), val.expiryMode, val.time);
       } else {
         await super.set(`${sid}:${val.key}`, JSON.stringify(val.value));
       }

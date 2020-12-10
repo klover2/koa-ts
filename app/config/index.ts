@@ -3,7 +3,7 @@ import api from './env/api';
 import dev from './env/dev';
 
 let config: any = {
-  name: '博客',
+  name: 'koa-ts',
   port: '3000', // 端口号
 };
 

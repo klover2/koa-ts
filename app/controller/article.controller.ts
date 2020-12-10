@@ -12,8 +12,7 @@ export default class UserController {
    */
   public async create(ctx: any) {
     const { uid = 0, title = '', content = '' } = ctx.request.body;
-    if (!uid || !title || !content)
-      throw new CustomError('缺少参数', { msg: 'title、uid或者content缺少' });
+    if (!uid || !title || !content) throw new CustomError('缺少参数', { msg: 'title、uid或者content缺少' });
 
     const result = await db.ArticleModel.create({
       uid,
@@ -34,8 +33,7 @@ export default class UserController {
    */
   public async update(ctx: any) {
     const { title = '', content = '', id = 0 } = ctx.request.body;
-    if (!title || !content || !id)
-      throw new CustomError('缺少参数', { msg: 'title、uid、id或者content缺少' });
+    if (!title || !content || !id) throw new CustomError('缺少参数', { msg: 'title、uid、id或者content缺少' });
 
     const result = await db.ArticleModel.update(
       {

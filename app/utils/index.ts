@@ -5,6 +5,7 @@ import moment from 'moment';
 export const sha1 = (str: string): string => {
   const sha1sum = crypto.createHash('sha1');
   sha1sum.update(str, 'utf8');
+
   str = sha1sum.digest('hex');
   return str;
 };
@@ -21,17 +22,13 @@ export const md5 = (str: string): string => {
 };
 // 检查是否是在微信中
 export const inMicroMessenger = (req: any): boolean => {
-  return (
-    req.headers['user-agent'] && req.headers['user-agent'].indexOf('MicroMessenger') > -1
-  );
+  return req.headers['user-agent'] && req.headers['user-agent'].indexOf('MicroMessenger') > -1;
 };
 // 检查是否是在移动端
 export const inMobile = (req: any): boolean => {
   let _inMobile = false;
   if (req.headers['user-agent']) {
-    _inMobile = !!req.headers['user-agent']
-      .toLowerCase()
-      .match(/(iphone|ipod|ipad|android)/);
+    _inMobile = !!req.headers['user-agent'].toLowerCase().match(/(iphone|ipod|ipad|android)/);
   }
   return _inMobile;
 };

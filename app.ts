@@ -4,6 +4,7 @@ import RedisServer from './app/utils/redis';
 RedisServer('myblog-ts_modules', config.redis_common); // 全局初始化redis
 
 import Koa from 'koa'; // koa框架
+
 import Router from 'koa-router'; // koa-router：处理路由
 import cors from 'koa2-cors';
 import bodyparser from 'koa-bodyparser';

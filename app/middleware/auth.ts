@@ -14,8 +14,7 @@ export default (): any => {
       };
       await next();
       ctx.result.success = true;
-      if (!ctx.result.data && !ctx.body)
-        throw new CustomError('请求失败', { msg: '没有找到对应接口' });
+      if (!ctx.result.data && !ctx.body) throw new CustomError('请求失败', { msg: '没有找到对应接口' });
     } catch (error) {
       const isCustomError = error instanceof CustomError;
       ctx.result.success = false;
