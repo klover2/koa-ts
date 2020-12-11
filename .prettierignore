@@ -1,4 +1,4 @@
-src
-node_modules
 dist
-README.md
+*.json
+*.md
+yarn.lock

@@ -7,7 +7,7 @@ export declare interface Ierr {
 // 工具类 自定义错误处理
 export class CustomError extends Error {
   errInfo: object;
-  public status: number = 500;
+  public status = 500;
   constructor(m: string, info?: object, status?: number) {
     super(m);
     this.errInfo = info || {};

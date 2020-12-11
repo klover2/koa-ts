@@ -4,7 +4,7 @@ export default {
   redis_common: {
     port: 6379, // redis端口
     host: '127.0.0.1', // redis地址
-    password: '', // redis密码 可以为空
+    password: '123456', // redis密码 可以为空
   },
   // 数据库 配置
   db_common: {

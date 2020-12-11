@@ -1,7 +1,7 @@
 import Redis from 'ioredis';
 // 自定义工具类 继承重新redis
 const redisClient: any = {};
-import { IRedisCommon, IRedis, ISet, IPexpireat } from './interface/redis.interface';
+import {IRedisCommon, IRedis, ISet, IPexpireat} from './interface/redis.interface';
 
 export default (sid: string, redisCommon?: IRedisCommon): any => {
   if (redisClient[sid]) {
@@ -45,7 +45,7 @@ export default (sid: string, redisCommon?: IRedisCommon): any => {
   redisClient[sid] = new RedisStore({
     port: redisCommon.port,
     host: redisCommon.host,
-    ...(redisCommon.password && { password: redisCommon.password }),
+    ...(redisCommon.password && {password: redisCommon.password}),
     db: redisCommon.db || 0,
   });
   return redisClient[sid];

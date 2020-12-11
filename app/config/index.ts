@@ -9,9 +9,9 @@ let config: any = {
 
 // 判断环境导入不同配置
 if (process.env.NODE_ENV === 'api') {
-  config = { ...config, ...api };
+  config = {...config, ...api};
 } else {
-  config = { ...config, ...dev };
+  config = {...config, ...dev};
 }
 
 export default config;

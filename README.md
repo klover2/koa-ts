@@ -1,29 +1,33 @@
 ## 介绍
-该框架集成koa, 轻量级。可以重新组装符合自己的项目的框架
+
+该框架集成 koa, 轻量级。可以重新组装符合自己的项目的框架
 本框架是一个完整是项目，可以直接使用。
 [详细介绍](https://blog.csdn.net/weixin_43110609/article/details/110956578)
+
 ## 环境
-1. node 
-2. typescript 
+
+1. node
+2. typescript
 3. mysql
 4. redis
 5. vscode
 
 ## 源码
-1. 拉取代码
-`git clone https://github.com/klover2/koa-ts.git`
-2. 安装
-`yarn`
-3. vscode 安装代码格式
-* Prettier - Code formatter
-* TSLint
 
-![在这里插入图片描述](https://img-blog.csdnimg.cn/20201210165013754.png?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L3dlaXhpbl80MzExMDYwOQ==,size_16,color_FFFFFF,t_70#pic_center)
-4. 配置好数据库 和redis 配置 在app/config中配置
-5. 创建数据库blog_dev
-6. `yarn serve`
-`注意`：如果你是windows 把package.json 中`export` 改成 `set`
+1. 拉取代码
+   `git clone https://github.com/klover2/koa-ts.git`
+2. 安装
+   `yarn`
+3. vscode 安装代码格式
+
+- Prettier - Code formatter
+- TSLint
+
+![在这里插入图片描述](https://img-blog.csdnimg.cn/20201210165013754.png?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L3dlaXhpbl80MzExMDYwOQ==,size_16,color_FFFFFF,t_70#pic_center) 4. 配置好数据库 和 redis 配置 在 app/config 中配置 5. 创建数据库 blog_dev 6. `yarn serve`
+`注意`：如果你是 windows 把 package.json 中`export` 改成 `set`
+
 ## 目录结构说明
+
 ```bash
 |-.vscode #vscode 配置文件
 | |─launch.json #debug 调试 按 f5 启动 已经配置好了
@@ -62,14 +66,34 @@
 | |-README.md # 项目介绍文件
 ```
 
+## 版本介绍（版本区别介绍）
+### v1.0.0
+使用的是tslint + prettier 格式化代码 编译的文件会出现警告(可以忽略 不影响正常使用)
+安装的插件有 
+`yarn add prettier tslint tslint-config-prettier tslint-plugin-prettier --dev`
+配置的文件有(详细配置文件中都有)
+`settings.json .prettierignore .prettierrc tslint.json`
+### v1.1.0
+此版本只是针对tslint 对js文件出现警告 一下没有办法处理 本人看着就有点烦 所以就弃用tslint 改用 eslint + prettier
+安装的插件有
+```bash
+yarn add eslint prettier --dev
+yarn add eslint-config-prettier eslint-plugin-prettier --dev 
+yarn add @typescript-eslint/eslint-plugin @typescript-eslint/parser --dev
+```
+配置的文件有(详细配置文件中都有)
+`settings .eslintrc.js .prettierrc.js .prettierignore`
 ## redis 的使用
-在app.ts 已经注册了路由如下:
+
+在 app.ts 已经注册了路由如下:
+
 ```bash
 import RedisServer from './app/utils/redis';
 RedisServer('koa-ts_modules', config.redis_common); // 全局初始化redis
 ```
 
 在其他地方使用
+
 ```bash
 import RedisServer from '../utils/redis';
 const redisServer = RedisServer('myblog-ts_modules');
@@ -82,6 +106,7 @@ let result = await redisServer.get('hh');
 ```
 
 ## 错误抛出
+
 ```bash
 import { CustomError } from '../utils/error_constructor';
 # 第一个参数 描述错误
@@ -90,6 +115,7 @@ throw new CustomError('缺少参数', { msg: 'title、uid或者content缺少' })
 ```
 
 ## 返回
+
 ```bash
 在auth.ts 中间件挂载了需要返回的参数格式
 
@@ -97,16 +123,19 @@ throw new CustomError('缺少参数', { msg: 'title、uid或者content缺少' })
 ```
 
 ## 运行
+
 本地运行
 `yarn serve` 或者 `yarn watch-server`
 服务器上运行
 `yarn run build` 先编译
-`node dist/app.js` 运行 或者 yarn run start 
+`node dist/app.js` 运行 或者 yarn run start
 
 ## 模型使用
+
 `import db from '../model'; // 数据库模型`
 `db.UserModel.create`
 模型关联 在`model/index.ts`中定义
+
 ```bash
 const { UserModel, ArticleModel } = db;
 UserModel.hasMany(ArticleModel, { foreignKey: 'uid', targetKey: 'id', as: 'artcleInfo' });
@@ -120,7 +149,9 @@ ArticleModel.belongsTo(UserModel, {
 ```
 
 ## 数据库增删改查
+
 1. 创建用户
+
 ```bash
 post http://localhost:3000/user/login
 
@@ -132,6 +163,7 @@ post http://localhost:3000/user/login
 ```
 
 2. 创建文章
+
 ```bash
 post http://localhost:3000/article/create
 
@@ -141,7 +173,9 @@ post http://localhost:3000/article/create
     "content": "node+typescript+koa"
 }
 ```
+
 3. 修改文章
+
 ```bash
 patch http://localhost:3000/article/update
 
@@ -152,11 +186,15 @@ patch http://localhost:3000/article/update
     "content": "node+typescript+koa"
 }
 ```
+
 4. 文章详情
+
 ```bash
 get http://localhost:3000/article/detail?id=1
 ```
+
 5. 文章列表
+
 ```bash
 post http://localhost:3000/article/list
 
@@ -166,7 +204,9 @@ post http://localhost:3000/article/list
     "offset": 0
 }
 ```
+
 6. 文章删除
+
 ```bash
 delete http://localhost:3000/article/del
 

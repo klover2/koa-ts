@@ -2,9 +2,9 @@
 // 文档 https://www.sequelize.com.cn/other-topics/typescript
 // sequelize v5 https://itbilu.com/nodejs/npm/sequelize-docs-v5.html
 
-import { Sequelize } from 'sequelize';
+import {Sequelize} from 'sequelize';
 import glob from 'glob';
-import { resolve } from 'path';
+import {resolve} from 'path';
 import _ from 'lodash';
 
 import config from '../config';
@@ -21,7 +21,7 @@ const sequelize: Sequelize = new Sequelize(
     timezone: '+08:00',
     pool: config.db_common.pool,
     benchmark: config.db_common.benchmark,
-    ...(!config.db_common.logging && { logging: false }), // 正式服取消打印sql 提高执行效率
+    ...(!config.db_common.logging && {logging: false}), // 正式服取消打印sql 提高执行效率
     define: config.db_common.define,
   }
 );
@@ -30,8 +30,8 @@ const sequelize: Sequelize = new Sequelize(
 const db: any = {};
 glob
   .sync(resolve(__dirname, './', '**/*.model.{ts,js}'))
-  .filter((value) => value.indexOf('index') === -1)
-  .map((model) => {
+  .filter(value => value.indexOf('index') === -1)
+  .map(model => {
     let name: string = model.split('/').pop() || '';
     name = name.replace(/\.(ts|js)/, '');
     name = _.camelCase(name); // 驼峰
@@ -55,8 +55,8 @@ sequelize
   });
 
 // 关联
-const { UserModel, ArticleModel } = db;
-UserModel.hasMany(ArticleModel, { foreignKey: 'uid', targetKey: 'id', as: 'artcleInfo' });
+const {UserModel, ArticleModel} = db;
+UserModel.hasMany(ArticleModel, {foreignKey: 'uid', targetKey: 'id', as: 'artcleInfo'});
 
 ArticleModel.belongsTo(UserModel, {
   foreignKey: 'uid',

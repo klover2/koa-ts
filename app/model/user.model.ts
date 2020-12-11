@@ -1,5 +1,5 @@
 'use strict';
-import { Model, Sequelize, DataTypes } from 'sequelize';
+import {Model, Sequelize, DataTypes} from 'sequelize';
 module.exports = (sequelize: Sequelize) => {
   class User extends Model {}
   User.init(

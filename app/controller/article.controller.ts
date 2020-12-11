@@ -1,5 +1,5 @@
 'use strict';
-import { CustomError } from '../utils/error_constructor';
+import {CustomError} from '../utils/error_constructor';
 import db from '../model'; // 数据库模型
 
 export default class UserController {
@@ -11,8 +11,9 @@ export default class UserController {
    * @apiVersion 1.0.0
    */
   public async create(ctx: any) {
-    const { uid = 0, title = '', content = '' } = ctx.request.body;
-    if (!uid || !title || !content) throw new CustomError('缺少参数', { msg: 'title、uid或者content缺少' });
+    const {uid = 0, title = '', content = ''} = ctx.request.body;
+    if (!uid || !title || !content)
+      throw new CustomError('缺少参数', {msg: 'title、uid或者content缺少'});
 
     const result = await db.ArticleModel.create({
       uid,
@@ -32,8 +33,9 @@ export default class UserController {
    * @apiVersion 1.0.0
    */
   public async update(ctx: any) {
-    const { title = '', content = '', id = 0 } = ctx.request.body;
-    if (!title || !content || !id) throw new CustomError('缺少参数', { msg: 'title、uid、id或者content缺少' });
+    const {title = '', content = '', id = 0} = ctx.request.body;
+    if (!title || !content || !id)
+      throw new CustomError('缺少参数', {msg: 'title、uid、id或者content缺少'});
 
     const result = await db.ArticleModel.update(
       {
@@ -41,7 +43,7 @@ export default class UserController {
         content,
       },
       {
-        where: { id },
+        where: {id},
       }
     );
 
@@ -55,11 +57,11 @@ export default class UserController {
    * @apiVersion 1.0.0
    */
   public async detail(ctx: any) {
-    const { id = 0 } = ctx.query;
-    if (!id) throw new CustomError('缺少参数', { msg: 'id缺少' });
+    const {id = 0} = ctx.query;
+    if (!id) throw new CustomError('缺少参数', {msg: 'id缺少'});
 
     const result = await db.ArticleModel.findOne({
-      attributes: { exclude: ['deletedAt', 'updateAt'] },
+      attributes: {exclude: ['deletedAt', 'updateAt']},
       include: [
         {
           model: db.UserModel,
@@ -67,7 +69,7 @@ export default class UserController {
           as: 'userInfo', // 别名 在app/model/index.ts 下定义
         },
       ],
-      where: { id },
+      where: {id},
     });
 
     ctx.result['data'] = {
@@ -82,11 +84,11 @@ export default class UserController {
    * @apiVersion 1.0.0
    */
   public async list(ctx: any) {
-    const { limit = 10, offset = 0, uid = 0 } = ctx.request.body;
-    if (!uid) throw new CustomError('缺少参数', { msg: 'uid缺少' });
+    const {limit = 10, offset = 0, uid = 0} = ctx.request.body;
+    if (!uid) throw new CustomError('缺少参数', {msg: 'uid缺少'});
 
-    const { rows, count } = await db.ArticleModel.findAndCountAll({
-      attributes: { exclude: ['deletedAt', 'updateAt'] },
+    const {rows, count} = await db.ArticleModel.findAndCountAll({
+      attributes: {exclude: ['deletedAt', 'updateAt']},
       include: [
         {
           model: db.UserModel,
@@ -94,7 +96,7 @@ export default class UserController {
           as: 'userInfo', // 别名 在app/model/index.ts 下定义
         },
       ],
-      where: { uid },
+      where: {uid},
       limit,
       offset,
     });
@@ -112,10 +114,10 @@ export default class UserController {
    * @apiVersion 1.0.0
    */
   public async del(ctx: any) {
-    const { id = 0 } = ctx.request.body;
-    if (!id) throw new CustomError('缺少参数', { msg: 'id缺少' });
+    const {id = 0} = ctx.request.body;
+    if (!id) throw new CustomError('缺少参数', {msg: 'id缺少'});
     await db.ArticleModel.destroy({
-      where: { id },
+      where: {id},
     });
 
     ctx.result['data'] = true;
